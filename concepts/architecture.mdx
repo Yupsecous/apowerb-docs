@@ -105,3 +105,10 @@ Model access goes through LiteLLM, so provider strings follow its convention:
 - **Mistral** — `mistral/mistral-large-latest`
 - **Google** — `gemini/gemini-pro`
 - **OVHcloud** — `ovhcloud/DeepSeek-R1-Distill-Llama-70B`
+- **Eden AI** — `edenai/anthropic/claude-haiku-5-5`
+
+Eden AI is a gateway, so its ids already name the downstream provider. The
+`edenai/` prefix keeps that id whole and sends the call to
+`https://api.edenai.run/v3`, so an agent needs only its Eden AI key and no
+endpoint. Set `model_api_base` to point elsewhere, for instance
+`https://api.eu.edenai.run/v3` for the EU region.

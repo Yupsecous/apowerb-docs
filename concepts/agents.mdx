@@ -33,7 +33,7 @@ POST /api/agents
 | Field | Description |
 | --- | --- |
 | `agent_name` | Display name, also the ADK application name |
-| `agent_model` | LiteLLM model string, e.g. `anthropic/claude-sonnet-4-5-20250929` |
+| `agent_model` | LiteLLM model string, e.g. `anthropic/claude-sonnet-4-5-20250929`. A gateway id keeps its own provider, as in `edenai/anthropic/claude-haiku-5-5` |
 | `agent_instruction` | System instruction |
 | `agent_type` | Execution pattern — see [Orchestration](/concepts/orchestration) |
 | `agent_tools` | Tool **config** ids, not tool names — see [Tools](/concepts/tools) |
