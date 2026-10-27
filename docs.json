@@ -157,6 +157,11 @@
                 "pages": ["monitoring/logs"]
               },
               {
+                "group": "Health",
+                "icon": "heart-pulse",
+                "pages": ["monitoring/health"]
+              },
+              {
                 "group": "Guardrails",
                 "icon": "shield-check",
                 "pages": ["monitoring/guardrails"]
