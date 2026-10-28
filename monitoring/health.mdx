@@ -25,7 +25,9 @@ database blips turns a short outage into a longer one.
   bounded by a 2 second timeout, so a database that hangs fails the probe instead of
   holding it open.
 - **fernet**: confirms that `ENCRYPT_KEY` is set and loaded. Without it the server cannot
-  decrypt stored integration tokens. See [Configuration](/configuration).
+  decrypt stored integration tokens. The server also refuses to start without a valid key,
+  so on a deployment that booted this check is always `ok`. See
+  [Configuration](/configuration).
 
 When both pass, the answer is `200`:
 
@@ -60,7 +62,7 @@ The `error` strings you can get are:
 | --- | --- | --- |
 | `database` | `database check failed` | The query did not run. The cause is in the server log, not in the response, because the route is public and a raw database error can carry host names. |
 | `database` | `timeout after 2.0s` | The database did not answer within 2 seconds. |
-| `fernet` | `ENCRYPT_KEY not configured` | No encryption key was loaded. |
+| `fernet` | `ENCRYPT_KEY not configured` | No encryption key was loaded. The server does not start in that state, so you will not normally see this one. |
 
 ## Notifier
 
@@ -104,6 +106,9 @@ readinessProbe:
     port: 8000
   periodSeconds: 10
 ```
+
+The chart also sets a startup probe on `/health` (every 5 seconds, up to 30 times), so a slow
+first boot is given up to 150 seconds before the liveness probe starts judging it.
 
 The routes live on the backend. In the chart's default layout the Ingress publishes only the
 frontend, so an uptime monitor pointed at `https://<host>/health` gets the frontend's `404`.
